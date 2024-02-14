@@ -11,6 +11,7 @@ defmodule AppWeb.Router do
     pipe_through :api
     resources "/clientes", ClientesController, except: [:new, :edit]
     get "/clientes/:id/transacoes", TransacoesController, :index
+    post "/clientes/:id/transacoes", TransacoesController, :create
   end
 
   # Enable LiveDashboard in development
