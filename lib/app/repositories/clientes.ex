@@ -1,4 +1,4 @@
-defmodule App.Clientes do
+defmodule App.ClientesRepository do
 
   @moduledoc """
   The Clientes context.
@@ -10,6 +10,10 @@ defmodule App.Clientes do
 
   def list_clientes do
     Repo.all(Cliente)
+  end
+
+  def list_by_id(id) do
+    Repo.get(Cliente, id)
   end
 
 end
