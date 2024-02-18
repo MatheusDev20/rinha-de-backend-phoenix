@@ -16,4 +16,9 @@ defmodule App.ClientesRepository do
     Repo.get(Cliente, id)
   end
 
+
+  def update_balance(value) do
+    Repo.update!(Cliente, set: [limite: value])
+  end
+
 end
