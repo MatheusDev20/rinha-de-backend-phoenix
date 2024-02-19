@@ -17,8 +17,12 @@ defmodule App.ClientesRepository do
   end
 
 
-  def update_balance(value) do
-    Repo.update!(Cliente, set: [limite: value])
+  def update_balance(%{client: client, transaction: transaction}) do
+    t = Map.get(transaction, "tipo")
+    case t do
+      "d" ->  IO.inspect('AHA')
+      "c" ->   Repo.update!(Cliente.changeset(client, %{saldo_inicial: client.saldo_inicial + transaction["valor"]}))
+    end
   end
 
 end
