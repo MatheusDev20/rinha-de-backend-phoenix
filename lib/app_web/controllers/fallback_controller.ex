@@ -14,11 +14,17 @@ defmodule AppWeb.FallbackController do
     |> render(:error, changeset: changeset)
   end
 
-  # This clause is an example of how to handle resources that cannot be found.
   def call(conn, {:error, :not_found}) do
     conn
     |> put_status(:not_found)
-    |> put_view(html: AppWeb.ErrorHTML, json: AppWeb.ErrorJSON)
-    |> render(:"404")
+    |> put_view(json: AppWeb.ErrorJSON)
+    |> render(:"404", message: "Resource not found")
+  end
+
+  def call(conn, %{error: message}) do
+    conn
+    |> put_status(:unprocessable_entity)
+    |> put_view(json: AppWeb.ErrorJSON)
+    |> render(:"422", message: message)
   end
 end

@@ -7,17 +7,18 @@ defmodule App.ClientesRepository do
 
   alias App.Clientes.Cliente
   alias App.Repo
-  alias App.Transacoes.Transacao
-
 
   def list_clientes do
     Repo.all(Cliente)
   end
 
   def list_by_id(id) do
-    Repo.get(Cliente, id)
+    client = Repo.get(Cliente, id)
+    case client do
+      nil -> {:error, :not_found}
+      client -> client
+    end
   end
-
 
   def update_balance(%{client: client, transaction: transaction}) do
     calculate_new_balance(Map.get(transaction, "tipo"), client, Map.get(transaction, "valor"))
