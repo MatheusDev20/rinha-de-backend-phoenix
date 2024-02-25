@@ -8,7 +8,5 @@ defmodule AppWeb.TransacoesJSON do
 
   def create(%{data: transacao}) do
     TransacoesRepository.insert(%{transaction: transacao})
-    res = %{status: "ok", message: "Transacao criada com sucesso"}
-    %{data: res}
   end
 end

@@ -5,7 +5,7 @@ defmodule App.Clientes.Cliente do
   schema "clientes" do
     field :nome, :string
     field :limite, :integer
-    field :saldo_inicial, :integer
+    field :saldo, :integer
     has_many :transacoes, App.Transacoes.Transacao
 
     # Generates inserted_at and updated_at columns
@@ -15,7 +15,7 @@ defmodule App.Clientes.Cliente do
   @doc false
   def changeset(cliente, attrs) do
     cliente
-    |> cast(attrs, [:nome, :limite, :saldo_inicial])
-    |> validate_required([:nome, :limite, :saldo_inicial])
+    |> cast(attrs, [:nome, :limite, :saldo])
+    |> validate_required([:nome, :limite, :saldo])
   end
 end
