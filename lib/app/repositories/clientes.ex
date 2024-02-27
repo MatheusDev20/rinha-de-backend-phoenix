@@ -20,6 +20,13 @@ defmodule App.ClientesRepository do
     end
   end
 
+  def get_by_id(id, assoc \\ false) do
+    cond do
+      assoc -> Repo.get(Cliente, id) |> Repo.preload(:transacoes)
+      true -> Repo.get(Cliente, id)
+    end
+  end
+
   def update_balance(%{client: client, transaction: transaction}) do
     calculate_new_balance(Map.get(transaction, "tipo"), client, Map.get(transaction, "valor"))
   end
