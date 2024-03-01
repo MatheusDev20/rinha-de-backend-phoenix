@@ -18,7 +18,8 @@ defmodule App.TransacoesRepository do
   end
 
   def show_client_extract(%{id: id}) do
-    ClientesRepository.get_by_id(id, true) |> build_extract()
+    # load assoc
+    ClientesRepository.get_last_transaction(id) |> build_extract()
   end
 
   defp insert_transaction(client_data, transaction_data, balance_response) do
@@ -28,13 +29,23 @@ defmodule App.TransacoesRepository do
       {:ok, balance_response}
   end
 
-  defp build_extract(client_data) do
-    extract = %{saldo: %{
-      total: client_data.saldo,
-      limite: client_data.limite,
-      data_extrato: DateTime.utc_now()
-    }}
+  defp build_extract(db_result) do
+    IO.inspect(db_result)
+    {_, db_data} = db_result
+    # rows = elem(db_result, 1).rows
+    [saldo, limite | _tail] = hd(db_data.rows)
+    transactions = Enum.map(db_data.rows, fn [_, _, valor, tipo, descricao, date] ->  %{tipo: tipo, valor: valor, descricao: descricao, date: date} end)
 
-    {:ok, extract}
+      extract = %{
+        saldo: %{
+          total: saldo,
+          limite: limite,
+          data_extract: DateTime.utc_now()
+        },
+        ultimas_transacoes: transactions
+      }
+
+      {:ok, extract}
+    end
+
   end
-end

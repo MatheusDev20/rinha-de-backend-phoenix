@@ -27,6 +27,15 @@ defmodule App.ClientesRepository do
     end
   end
 
+  def get_last_transaction(id) do
+    Repo.query('WITH ClientInfo AS ( SELECT id, saldo, limite FROM clientes WHERE id = #{id})
+    SELECT ci.limite, ci.saldo, t.valor, t.tipo, t.descricao, t.inserted_at
+    FROM ClientInfo ci
+    INNER JOIN transacoes t ON ci.id = t.cliente_id
+    WHERE ci.id = #{id}
+    ORDER BY t.inserted_at DESC;')
+  end
+
   def update_balance(%{client: client, transaction: transaction}) do
     calculate_new_balance(Map.get(transaction, "tipo"), client, Map.get(transaction, "valor"))
   end
