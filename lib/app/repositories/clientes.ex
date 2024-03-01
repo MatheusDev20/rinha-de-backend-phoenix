@@ -33,7 +33,7 @@ defmodule App.ClientesRepository do
     FROM ClientInfo ci
     INNER JOIN transacoes t ON ci.id = t.cliente_id
     WHERE ci.id = #{id}
-    ORDER BY t.inserted_at DESC;')
+    ORDER BY t.inserted_at DESC LIMIT 10')
   end
 
   def update_balance(%{client: client, transaction: transaction}) do

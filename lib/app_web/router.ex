@@ -7,11 +7,14 @@ defmodule AppWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/api", AppWeb do
+  scope "/", AppWeb do
     pipe_through :api
-    resources "/clientes", ClientesController, except: [:new, :edit]
-    post "/clientes/:id/transacoes", TransacoesController, :create
-    get "/clientes/:id/extrato", TransacoesController, :show_extract
+
+    scope "/clientes/:id" do
+      post "/transacoes", TransacoesController, :create
+      get "/extrato", TransacoesController, :show_extract
+    end
+    
   end
 
   # Enable LiveDashboard in development

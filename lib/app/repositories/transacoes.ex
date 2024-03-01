@@ -30,7 +30,6 @@ defmodule App.TransacoesRepository do
   end
 
   defp build_extract(db_result) do
-    IO.inspect(db_result)
     {_, db_data} = db_result
     # rows = elem(db_result, 1).rows
     [saldo, limite | _tail] = hd(db_data.rows)
