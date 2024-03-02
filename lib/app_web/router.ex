@@ -11,10 +11,10 @@ defmodule AppWeb.Router do
     pipe_through :api
 
     scope "/clientes/:id" do
-      post "/transacoes", TransacoesController, :create
-      get "/extrato", TransacoesController, :show_extract
+      post "/transacoes", ClientsController, :create
+      get "/extrato", ClientsController, :show_extract
     end
-    
+
   end
 
   # Enable LiveDashboard in development

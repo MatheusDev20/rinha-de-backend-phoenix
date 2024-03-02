@@ -1,7 +1,7 @@
-defmodule AppWeb.TransacoesController do
+defmodule AppWeb.ClientsController do
   use AppWeb, :controller
   alias App.TransacoesRepository
-
+  alias App.ClientesRepository
   action_fallback AppWeb.FallbackController
 
   def create(conn, params) do
@@ -12,7 +12,7 @@ defmodule AppWeb.TransacoesController do
 
   def show_extract(conn, params) do
     id = Map.fetch(params, "id") |> elem(1)
-    with {:ok, response} <- TransacoesRepository.show_client_extract(%{id: id}) do
+    with {:ok, response} <- ClientesRepository.show_client_extract(%{id: id}) do
       render(conn, :show_extract, %{extract: response})
     end
   end

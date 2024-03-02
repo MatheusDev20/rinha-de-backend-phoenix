@@ -7,9 +7,6 @@ defmodule App.Clientes.Cliente do
     field :limite, :integer
     field :saldo, :integer
     has_many :transacoes, App.Transacoes.Transacao
-
-    # Generates inserted_at and updated_at columns
-    timestamps(type: :utc_datetime)
   end
 
   @doc false

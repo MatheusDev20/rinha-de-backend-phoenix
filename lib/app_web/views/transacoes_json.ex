@@ -1,8 +1,4 @@
-defmodule AppWeb.TransacoesJSON do
-
-  def index(%{transacoes: data}) do
-    data
-  end
+defmodule AppWeb.ClientsJSON do
 
   def show(%{transaction: data}) do
     data

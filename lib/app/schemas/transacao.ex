@@ -7,9 +7,8 @@ defmodule App.Transacoes.Transacao do
     field :valor, :integer
     field :tipo, :string
     field :descricao, :string
+    field :realizada_em, :utc_datetime
     belongs_to :cliente, App.Clientes.Cliente
-
-    timestamps(type: :utc_datetime)
   end
 
    @doc false
