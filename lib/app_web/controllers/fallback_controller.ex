@@ -18,13 +18,13 @@ defmodule AppWeb.FallbackController do
     conn
     |> put_status(:not_found)
     |> put_view(json: AppWeb.ErrorJSON)
-    |> render(:"404", message: "Resource not found")
+    |> render(:"404")
   end
 
-  def call(conn, %{error: message}) do
+  def call(conn, {:error, :unprocessable_entity }) do
     conn
     |> put_status(:unprocessable_entity)
     |> put_view(json: AppWeb.ErrorJSON)
-    |> render(:"422", message: message)
+    |> render(:"422")
   end
 end

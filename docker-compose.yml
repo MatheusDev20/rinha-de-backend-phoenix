@@ -14,8 +14,8 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '0.375'
-          memory: 115MB
+          cpus: '0.3'
+          memory: 150MB
     depends_on:
       db:
         condition: service_healthy
@@ -42,7 +42,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '0.25'
+          cpus: '0.2'
           memory: 50MB
   db:
     image: postgres:latest
@@ -59,8 +59,8 @@ services:
     deploy:
       resources:
         limits:
-          cpus: "0.5"
-          memory: "270MB"
+          cpus: "0.7"
+          memory: "200MB"
     healthcheck:
       test: [ "CMD-SHELL", "pg_isready -U postgres -d rinha_backend" ]
       interval: 10s

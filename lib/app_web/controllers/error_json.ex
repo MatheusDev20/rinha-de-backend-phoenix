@@ -9,7 +9,12 @@ defmodule AppWeb.ErrorJSON do
   # By default, Phoenix returns the status message from
   # the template name. For example, "404.json" becomes
   # "Not Found".
-  def render(template, assigns) do
-    %{errors: %{message: Phoenix.Controller.status_message_from_template(template), detail: assigns.message}}
+
+  def render("404.json", _assigns) do
+    %{errors: %{ detail: "Not Found" }}
+  end
+
+  def render("422.json", _assigns) do
+    %{errors: %{detail: "Unprocessable Entity"}}
   end
 end

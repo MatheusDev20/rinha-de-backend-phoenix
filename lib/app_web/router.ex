@@ -10,26 +10,9 @@ defmodule AppWeb.Router do
   scope "/", AppWeb do
     pipe_through :api
 
-    scope "/clientes/:id" do
-      post "/transacoes", ClientsController, :create
-      get "/extrato", ClientsController, :show_extract
-    end
-
-  end
-
-  # Enable LiveDashboard in development
-  if Application.compile_env(:app, :dev_routes) do
-    # If you want to use the LiveDashboard in production, you should put
-    # it behind authentication and allow only admins to access it.
-    # If your application does not have an admins-only section yet,
-    # you can use Plug.BasicAuth to set up some basic authentication
-    # as long as you are also using SSL (which you should anyway).
-    import Phoenix.LiveDashboard.Router
-
-    scope "/dev" do
-      pipe_through [:fetch_session, :protect_from_forgery]
-
-      live_dashboard "/dashboard", metrics: AppWeb.Telemetry
+    scope "/clientes/:cliente_id" do
+      post "/transacoes", MainController, :cria_transacao
+      get "/extrato", MainController, :cria_extrato
     end
   end
 end
